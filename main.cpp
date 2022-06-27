@@ -20,8 +20,8 @@ signed main()
 			if (choice=='R' || choice=='r'){
 				rules();
 			}
-			cout << "Let's start then! Choose your first entry:" << endl;
-			printgrid();
+			cout << "Let's start then! Choose your first entry:" << endl<<endl;
+			printgrid(); cout<<endl;
 			while(gridnotfull(grid))
 			{
 				int row , col, testing;
@@ -29,12 +29,13 @@ signed main()
 				while(row>3 || row<1 || col>3 || col<0 || grid[row-1][col-1]!='_')
 				{
 					if(row>0 && row<=3 && col>0 && col<=3) cout << "This cell is already filled. Remember you can't overwrite! Re-enter your move." << endl;
-					else cout<<"INVALID ENTRY!! Enter values in the range 1-3"<<endl;
-					printgrid();		
+					else cout<<"INVALID ENTRY!! Enter values in the range 1-3"<<endl<<endl;
+					printgrid(); cout<<endl;		
 					cin >> row >> col;
 				}
 				grid[row-1][col-1]=o;
-				printgrid();
+				cout<<endl;
+				printgrid(); cout<<endl;
 				testing = eval(grid);
 				if(testing<0)
 				{
@@ -44,8 +45,11 @@ signed main()
 				}
 				_move mv = bestmove(grid);
 				grid[mv.r][mv.c]=p;
-				cout << "My turn now! Here's my move:" << endl;
-				printgrid();
+				if(gridnotfull(grid)){
+					cout << "My turn now! Here's my move:" << endl<<endl;
+					printgrid();
+					cout<<endl;
+				}
 				testing = eval(grid);
 				if(testing > 0)
 				{
@@ -53,10 +57,10 @@ signed main()
 					tot_score.second++;
 					break;
 				}
-				cout<<"Your turn:"<<endl;
+				if(gridnotfull(grid))cout<<"Your turn:"<<endl;
 			}
 			if(eval(grid)==0){
-				cout << "And that's a tie. Shall we go for another game?"<< endl;
+				cout << "And that's a tie. Shall we go for another round?"<< endl;
 				tot_score.first++;
 				tot_score.second++;
 			}
