@@ -75,7 +75,7 @@ int eval(char grid[3][3])
 	return 0;
 }
 
-int minmax(char grid[3][3], int d, bool im)
+int minimax(char grid[3][3], int d, bool im)
 {
 	int score = eval(grid);
 	if(score == 10)
@@ -96,7 +96,7 @@ int minmax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=p;
-					b=max(b,minmax(grid,d+1, !im));
+					b=max(b,minimax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
@@ -113,7 +113,7 @@ int minmax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=o;
-					b=min(b,minmax(grid,d+1, !im));
+					b=min(b,minimax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
@@ -135,7 +135,7 @@ _move bestmove(char grid[3][3])
 			if(grid[i][j]=='_')
 			{
 				grid[i][j] = p;
-				int tmp = minmax(grid , 0 , false);
+				int tmp = minimax(grid , 0 , false);
 				grid[i][j]='_';
 				if(tmp>bestval)
 				{
