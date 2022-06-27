@@ -153,6 +153,7 @@ signed main()
 {
 	ios_base::sync_with_stdio(NULL);
 	//cin.tie(NULL); cout.tie(NULL);
+	//uncomment the above line if you wish to input moves in one go.
 	cout<<"Welcome to Tic-Tac-Toe!"<<endl;
 	while(true)
 	{
