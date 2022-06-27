@@ -75,7 +75,7 @@ int eval(char grid[3][3])
 	return 0;
 }
 
-int minimax(char grid[3][3], int d, bool im)
+int minmax(char grid[3][3], int d, bool im)
 {
 	int score = eval(grid);
 	if(score == 10)
@@ -96,7 +96,7 @@ int minimax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=p;
-					b=max(b,minimax(grid,d+1, !im));
+					b=max(b,minmax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
@@ -113,7 +113,7 @@ int minimax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=o;
-					b=min(b,minimax(grid,d+1, !im));
+					b=min(b,minmax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
@@ -135,7 +135,7 @@ _move bestmove(char grid[3][3])
 			if(grid[i][j]=='_')
 			{
 				grid[i][j] = p;
-				int tmp = minimax(grid , 0 , false);
+				int tmp = minmax(grid , 0 , false);
 				grid[i][j]='_';
 				if(tmp>bestval)
 				{
@@ -153,7 +153,6 @@ signed main()
 {
 	ios_base::sync_with_stdio(NULL);
 	//cin.tie(NULL); cout.tie(NULL);
-	//uncomment the above line if you wish to input moves in one go.
 	cout<<"Welcome to Tic-Tac-Toe!"<<endl;
 	while(true)
 	{
@@ -172,8 +171,8 @@ signed main()
 			if (choice=='R' || choice=='r'){
 				rules();
 			}
-			cout << "Let's start then! Choose your first entry:" << endl;
-			printgrid();
+			cout << "Let's start then! Choose your first entry:" << endl<<endl;
+			printgrid(); cout<<endl;
 			while(gridnotfull(grid))
 			{
 				int row , col, testing;
@@ -181,12 +180,13 @@ signed main()
 				while(row>3 || row<1 || col>3 || col<0 || grid[row-1][col-1]!='_')
 				{
 					if(row>0 && row<=3 && col>0 && col<=3) cout << "This cell is already filled. Remember you can't overwrite! Re-enter your move." << endl;
-					else cout<<"INVALID ENTRY!! Enter values in the range 1-3"<<endl;
-					printgrid();		
+					else cout<<"INVALID ENTRY!! Enter values in the range 1-3"<<endl<<endl;
+					printgrid(); cout<<endl;		
 					cin >> row >> col;
 				}
 				grid[row-1][col-1]=o;
-				printgrid();
+				cout<<endl;
+				printgrid(); cout<<endl;
 				testing = eval(grid);
 				if(testing<0)
 				{
@@ -196,8 +196,11 @@ signed main()
 				}
 				_move mv = bestmove(grid);
 				grid[mv.r][mv.c]=p;
-				cout << "My turn now! Here's my move:" << endl;
-				printgrid();
+				if(gridnotfull(grid)){
+					cout << "My turn now! Here's my move:" << endl<<endl;
+					printgrid();
+					cout<<endl;
+				}
 				testing = eval(grid);
 				if(testing > 0)
 				{
@@ -205,10 +208,10 @@ signed main()
 					tot_score.second++;
 					break;
 				}
-				cout<<"Your turn:"<<endl;
+				if(gridnotfull(grid))cout<<"Your turn:"<<endl;
 			}
 			if(eval(grid)==0){
-				cout << "And that's a tie. Shall we go for another game?"<< endl;
+				cout << "And that's a tie. Shall we go for another round?"<< endl;
 				tot_score.first++;
 				tot_score.second++;
 			}
