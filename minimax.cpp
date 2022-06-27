@@ -1,4 +1,4 @@
-int minmax(char grid[3][3], int d, bool im)
+int minimax(char grid[3][3], int d, bool im)
 {
 	int score = eval(grid);
 	if(score == 10)
@@ -19,7 +19,7 @@ int minmax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=p;
-					b=max(b,minmax(grid,d+1, !im));
+					b=max(b,minimax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
@@ -36,7 +36,7 @@ int minmax(char grid[3][3], int d, bool im)
 				if(grid[i][j]=='_')
 				{
 					grid[i][j]=o;
-					b=min(b,minmax(grid,d+1, !im));
+					b=min(b,minimax(grid,d+1, !im));
 					grid[i][j]='_';
 				}				
 			}
